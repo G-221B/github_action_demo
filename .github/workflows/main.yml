@@ -14,7 +14,7 @@ jobs:
     - name: SSH And Build
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ env.SERVER_HOST }}
+        host: ${{ env.REMOTE_HOST }}
         username: ${{ env.USER_NAME }}
         key: ${{ env.SSH_KEY }}
         port: 22
