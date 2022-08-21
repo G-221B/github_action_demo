@@ -14,9 +14,9 @@ jobs:
     - name: SSH And Build
       uses: appleboy/ssh-action@master
       with:
-        host: ${{ env.REMOTE_HOST }}
-        username: ${{ env.USER_NAME }}
-        key: ${{ env.SSH_KEY }}
+        host: ${{ secrets.REMOTE_HOST }}
+        username: ${{ secrets.USER_NAME }}
+        password: ${{ secrets.REMOTE_PASSWORD }}
         port: 22
         # git fetch后再reset的操作是为了强制拉取（不考虑本地冲突直接覆盖）
         script: |
