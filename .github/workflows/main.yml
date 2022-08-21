@@ -1,35 +1,27 @@
-name: note build
-# 触发workflow的条件
-on:
-    push:
-        # 只有master分支发生push事件时，才会触发workflow
-        branches: [master]
-    pull_request:
-        branches: [master]
+name: Deploy To  CI
 
-env:
-    SERVER_PRIVATE_KEY: ${{ secrets.SSH_KEY }} # 服务器私钥
-    SERVER_HOST: ${{ secrets.REMOTE_HOST }} # 服务器IP地址
-    USER_NAME: ${{ secrets.USER_NAME }} # 服务器用户名
-    cache-name: note
+on: 
+  push:
+    branches: 
+      - master
 
-# jobs表示执行的一项或多项任务
 jobs:
-    build: # 任务的job_id，具体名称自定义，这里build代表打包
-        runs-on: ubuntu-latest # runs-on字段指定运行所需要的虚拟机环境。注意：这个是必填字段
-        steps:
-            # 上传打包资源
-            - name: Deploy
-            uses: appleboy/ssh-action@master
-            with:
-              host: ${{ env.SERVER_HOST }}
-              username: ${{ env.USER_NAME }}
-              key: ${{ env.SERVER_PRIVATE_KEY }}
-              port: 22
-              # git fetch后再reset的操作是为了强制拉取（不考虑本地冲突直接覆盖）
-              script: |
-                cd ~/project/github_action_demo
-                git fetch --all
-                git reset --hard origin/master
-                yarn
-                yarn build
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: SSH And Build
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ env.SERVER_HOST }}
+        username: ${{ env.USER_NAME }}
+        key: ${{ env.SERVER_PRIVATE_KEY }}
+        port: 22
+        # git fetch后再reset的操作是为了强制拉取（不考虑本地冲突直接覆盖）
+        script: |
+          cd ~/project/github_action_demo
+          git fetch --all
+          git reset --hard origin/master
+          yarn
+          yarn build
