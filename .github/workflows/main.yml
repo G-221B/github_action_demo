@@ -20,6 +20,7 @@ jobs:
         port: 22
         # git fetch后再reset的操作是为了强制拉取（不考虑本地冲突直接覆盖）
         script: |
+          ls
           cd ~/project/github_action_demo
           git fetch --all
           git reset --hard origin/master
