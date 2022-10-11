@@ -11,6 +11,7 @@ class App extends Component {
     </div>
   }
 }
+// 底部注释
 
 ReactDOM.render(
   <App/>,
