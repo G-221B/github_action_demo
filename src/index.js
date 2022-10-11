@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
 
+// 头部
 class App extends Component {
 
   render() {
