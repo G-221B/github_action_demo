@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom'
-import Vue from 'vue'
 
 // 头部
 class App extends Component {
